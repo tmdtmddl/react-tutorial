@@ -13,14 +13,13 @@ const Code = () => {
   const onCheck = () => {
     if (code.length === 6 && code === verificationCode) {
       return alert("인증되었습니다.");
-    } else {
-      alert("같지 않습니다.");
     }
+    alert("같지 않습니다.");
   };
 
   //5. useEffect 로 code를 감지해서 code길이가 6자리일 때에만 onCheck하도록 코드 짜기
   useEffect(() => {
-    if (code.length == 6) {
+    if (code.length === 6) {
       onCheck();
     }
   }, [code]);

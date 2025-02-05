@@ -18,7 +18,7 @@ const Timer = () => {
   useEffect(() => {
     if (counting) {
       const count = setInterval(() => {
-        setTime((prev) => prev - 1);
+        setTime((prev) => (prev === 0 ? 0 : prev - 1));
       }, 1000);
 
       return () => {
