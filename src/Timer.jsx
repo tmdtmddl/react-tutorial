@@ -14,7 +14,7 @@ const Timer = () => {
   }, [counting]);
 
   // 7 useEffect로 counting이 실행됬을 때 1초씩 줄어드는 코드 작성하기
-
+  // 7 - 1. time이란 숫자가 0 미만으로 가지 않게끔 만들기
   useEffect(() => {
     if (counting) {
       const count = setInterval(() => {
@@ -26,7 +26,7 @@ const Timer = () => {
       };
     }
   }, [counting]);
-  // 7 - 1. time이란 숫자가 0 미만으로 가지 않게끔 만들기
+
   return (
     <div>
       <h1>{time}</h1>
