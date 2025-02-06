@@ -31,6 +31,24 @@ const Timer = () => {
     }
   }, [counting]);
 
+  // useEffect(() => {
+  //   if (counting) {
+  //     // setInterval
+  //     const id = setInterval(() => {
+  //       setTime((prev) => {
+  //         if (prev <= 0) {
+  //           return 0
+  //         }
+  //         return prev - 1
+  //       })
+  //     }, 1000)
+
+  //     return () => {
+  //       clearInterval(id)
+  //     }
+  //   }
+  // }, [counting])
+
   return (
     <div>
       <h1>Timer</h1>
