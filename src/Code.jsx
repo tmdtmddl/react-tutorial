@@ -20,7 +20,11 @@ const Code = () => {
   //5. useEffect 로 code를 감지해서 code길이가 6자리일 때에만 onCheck하도록 코드 짜기
   useEffect(() => {
     if (code.length === 6) {
-      // onCheck();
+      onCheck();
+
+      return () => {
+        onCheck();
+      };
     }
   }, [code]);
 
@@ -34,7 +38,7 @@ const Code = () => {
         onChange={(e) => setCode(e.target.value)}
       />
 
-      {/* 5. button 만들어서 클릭햇을 */}
+      {/* 5. button 만들어서 클릭햇을 때 */}
       <button onClick={onCheck}> 인증하기</button>
     </div>
   );
