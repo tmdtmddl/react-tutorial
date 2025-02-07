@@ -25,7 +25,7 @@ export const fetchList = () => {
   return realData ?? []; //??=앞에 값이없으면 뒤에꺼해줘
 };
 
-export const deleteItem = (item) => {
+export const deleteItem = (item) =>
   new Promise((resolve, reject) => {
     let list = [];
     const data = database.getItem("list");
@@ -33,8 +33,9 @@ export const deleteItem = (item) => {
       return reject("목록이 존재하지 않습니다.");
     }
     list = JSON.parse(data);
+
     list = list.filter((i) => i !== item);
     database.setItem("list", JSON.stringify(list));
+
     return resolve("성공");
   });
-};
