@@ -8,12 +8,12 @@ const Todo2 = () => {
 
   const onTodo = () => {
     if (string.length === 0) {
-      alert("아무것도 입력하지않음");
+      alert("아무것도 입력하지않았습니다.");
       return todoRef.current?.focus();
     }
     const found = todos.find((item) => item === string);
     if (found) {
-      alert("이미적은 할일입임");
+      alert("이미적은 할일입니다.");
       setString("");
       todoRef.current?.focus();
       return;
