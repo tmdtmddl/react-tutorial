@@ -1,9 +1,14 @@
-const TodoItem = () => {
+import PropType from "prop-types";
+
+const TodoItem = ({ todo, index }) => {
   return (
-    <div>
-      <h1>TodoItem</h1>
-    </div>
+    <p>
+      {index + 1}. {todo}
+    </p>
   );
 };
 
-export default TodoItem;
+TodoItem.prototype = {
+  todo: PropType.string,
+  index: PropType.number,
+};

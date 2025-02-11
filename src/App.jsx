@@ -141,7 +141,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 const App = () => {
-  const [todos, setTodos] = useState(["LearnReact", "Study more", "Cleaning"]);
+  const [todos, setTodos] = useState(["Learn React", "Study more", "Cleaning"]);
 
   return (
     <div>
@@ -149,7 +149,13 @@ const App = () => {
       <TodoForm todos={todos} setTodos={setTodos} />
       {todos.map((todo, index) => {
         return (
-          <TodoItem key={todo} index={index} todo={todo} setTodos={setTodos} />
+          <TodoItem
+            key={todo}
+            index={index}
+            todo={todo}
+            setTodos={setTodos}
+            todos={todos}
+          />
         );
       })}
     </div>
@@ -158,26 +164,20 @@ const App = () => {
 
 export default App;
 
-const TodoItem = ({ todo, index, todos, setTodos }) => {
+const TodoItem = ({ todo, index, setTodos, todos }) => {
   const onDelete = () => {
-    setTodos((prev) => {
-      prev.filter((item) => item !== todo);
-    });
+    setTodos((prev) => prev.filter((item) => item !== todo));
+    alert("삭제되었습니다.");
   };
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          columnGap: 10,
-        }}
-      >
+      <div style={{ display: "flex", columnGap: 10 }}>
         <p>
           {index + 1}. {todo}
         </p>
         <button onClick={onDelete}>삭제</button>
       </div>
-      <TodoForm setTodos={setTodos} todos={todos} />
+      <TodoForm setTodos={setTodos} todos={todos} isUpdate payload={todo} />
     </>
   );
 };
@@ -191,9 +191,9 @@ TodoItem.propTypes = {
 
 const TodoForm = ({ todos, setTodos, isUpdate, payload }) => {
   const [input, setInput] = useState(payload ?? "");
+
   return (
     <form
-      action=""
       onSubmit={(e) => {
         e.preventDefault();
         if (input.length === 0) {
@@ -205,15 +205,15 @@ const TodoForm = ({ todos, setTodos, isUpdate, payload }) => {
           }
           return item === payload && item;
         });
+        console.log(foundIndex);
         if (foundIndex >= 0) {
           if (!isUpdate) {
-            return alert("already added!");
+            return alert("Already Added!");
           }
         }
         if (isUpdate && foundIndex < 0) {
-          return alert("No such item");
+          return alert("No Such Item");
         }
-
         setTodos((prev) => {
           let copy = [...prev];
 
@@ -225,6 +225,8 @@ const TodoForm = ({ todos, setTodos, isUpdate, payload }) => {
 
           return copy;
         });
+
+        alert(isUpdate ? "수정되었습니다." : "추가되었습니다.");
       }}
     >
       <input
