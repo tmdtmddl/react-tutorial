@@ -51,88 +51,195 @@
 // };
 // export default App;
 
-//1.useState,useEffect,useRef 꺼내오기
-import { useState, useEffect, useRef } from "react";
+// //1.useState,useEffect,useRef 꺼내오기
+// import { useState, useEffect, useRef } from "react";
 
-//2.initialState라는 이름으로 빈배열만들기
-const initialState = [];
+// //2.initialState라는 이름으로 빈배열만들기
+// const initialState = [];
+
+// const App = () => {
+//   //3.useState를 사용해서 todos선언하고 초기값으로 intialState넣기
+//   const [todos, setTodos] = useState(initialState);
+//   //4.useState로 todo선언하고 초기값은 빈 문자열
+//   const [todo, setTodo] = useState("");
+
+//   const ref = useRef(null);
+//   //6.onSubmit이라는 이름의 함수를 만드세요
+//   const onSubmit = () => {
+//     console.log(todo);
+
+//     //6-2 todo 값입력되지 않았을때 예외처리
+//     //예외처리 경고 + (인풋창 포커스)
+//     if (todo.length === 0) {
+//       alert("아무것도 입력되지않았습니다.");
+//       return ref.current?.focus();
+//     }
+//     //6-3.todo값이 1글자 이하일때에도 예외처리
+//     if (todo.length <= 1) {
+//       alert("할일이 너무짧습니다.");
+//       return ref.current?.focus();
+//     }
+
+//     //6-4. setTodos함수를 사용해서 todo값을 todos에추가하기
+//     setTodos((prev) => [todo, ...prev]);
+//     //set함수는 무조건 원래의 값과 같은 타입을 return해줘야함.
+//     //한줄짜리라면 return 없이 작성가능
+//     setTodo(""); //=>문자열을 초기화함
+//     ref.current?.focus();
+//   };
+//   useEffect(() => {
+//     console.log({ todo });
+//   }, [todo]);
+//   return (
+//     <div>
+//       <h1>App</h1>
+//       {/* 5.form 만들고 안에 input,btton넣기
+//       5-1. input에 todo연결하기 value,onChange
+//       5-2.form 태그에서  onSubmit 속성에서  e를 가져와 e.preventDefault()라는 새로고침방지하기
+//        */}
+//       <form
+//         action=""
+//         onSubmit={(e) => {
+//           e.preventDefault();
+//           onSubmit();
+//         }}
+//       >
+//         <input
+//           type="text"
+//           value={todo}
+//           onChange={(e) => setTodo(e.target.value)}
+//           ref={ref}
+//         />
+//         <button>ADD</button>
+//       </form>
+//       <ul>
+//         {todos.map((todo) => {
+//           const onDelete = () =>
+//             // setTodos((prev) => {
+//             //   let copy = [...prev];
+//             //   copy.splice(index, 1);
+//             //   return copy;
+//             // });
+
+//             setTodos((prev) => prev.filter((item) => item !== todo));
+
+//           return (
+//             <li key={todo}>
+//               {todo}
+//               <button onClick={onDelete}>삭제</button>
+//             </li>
+//           );
+//         })}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+import PropTypes from "prop-types";
+import { useState } from "react";
 
 const App = () => {
-  //3.useState를 사용해서 todos선언하고 초기값으로 intialState넣기
-  const [todos, setTodos] = useState(initialState);
-  //4.useState로 todo선언하고 초기값은 빈 문자열
-  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState(["LearnReact", "Study more", "Cleaning"]);
 
-  const ref = useRef(null);
-  //6.onSubmit이라는 이름의 함수를 만드세요
-  const onSubmit = () => {
-    console.log(todo);
-
-    //6-2 todo 값입력되지 않았을때 예외처리
-    //예외처리 경고 + (인풋창 포커스)
-    if (todo.length === 0) {
-      alert("아무것도 입력되지않았습니다.");
-      return ref.current?.focus();
-    }
-    //6-3.todo값이 1글자 이하일때에도 예외처리
-    if (todo.length <= 1) {
-      alert("할일이 너무짧습니다.");
-      return ref.current?.focus();
-    }
-
-    //6-4. setTodos함수를 사용해서 todo값을 todos에추가하기
-    setTodos((prev) => [todo, ...prev]);
-    //set함수는 무조건 원래의 값과 같은 타입을 return해줘야함.
-    //한줄짜리라면 return 없이 작성가능
-    setTodo(""); //=>문자열을 초기화함
-    ref.current?.focus();
-  };
-  useEffect(() => {
-    console.log({ todo });
-  }, [todo]);
   return (
     <div>
       <h1>App</h1>
-      {/* 5.form 만들고 안에 input,btton넣기
-      5-1. input에 todo연결하기 value,onChange
-      5-2.form 태그에서  onSubmit 속성에서  e를 가져와 e.preventDefault()라는 새로고침방지하기
-       */}
-      <form
-        action=""
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit();
-        }}
-      >
-        <input
-          type="text"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
-          ref={ref}
-        />
-        <button>ADD</button>
-      </form>
-      <ul>
-        {todos.map((todo) => {
-          const onDelete = () =>
-            // setTodos((prev) => {
-            //   let copy = [...prev];
-            //   copy.splice(index, 1);
-            //   return copy;
-            // });
-
-            setTodos((prev) => prev.filter((item) => item !== todo));
-
-          return (
-            <li key={todo}>
-              {todo}
-              <button onClick={onDelete}>삭제</button>
-            </li>
-          );
-        })}
-      </ul>
+      <TodoForm todos={todos} setTodos={setTodos} />
+      {todos.map((todo, index) => {
+        return (
+          <TodoItem key={todo} index={index} todo={todo} setTodos={setTodos} />
+        );
+      })}
     </div>
   );
 };
 
 export default App;
+
+const TodoItem = ({ todo, index, todos, setTodos }) => {
+  const onDelete = () => {
+    setTodos((prev) => {
+      prev.filter((item) => item !== todo);
+    });
+  };
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          columnGap: 10,
+        }}
+      >
+        <p>
+          {index + 1}. {todo}
+        </p>
+        <button onClick={onDelete}>삭제</button>
+      </div>
+      <TodoForm setTodos={setTodos} todos={todos} />
+    </>
+  );
+};
+
+TodoItem.propTypes = {
+  todo: PropTypes.string,
+  index: PropTypes.number,
+  setTodos: PropTypes.func,
+  todos: PropTypes.arrayOf(PropTypes.string),
+};
+
+const TodoForm = ({ todos, setTodos, isUpdate, payload }) => {
+  const [input, setInput] = useState(payload ?? "");
+  return (
+    <form
+      action=""
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (input.length === 0) {
+          return alert("type todos");
+        }
+        const foundIndex = todos.findIndex((item) => {
+          if (!isUpdate) {
+            return item === input && item;
+          }
+          return item === payload && item;
+        });
+        if (foundIndex >= 0) {
+          if (!isUpdate) {
+            return alert("already added!");
+          }
+        }
+        if (isUpdate && foundIndex < 0) {
+          return alert("No such item");
+        }
+
+        setTodos((prev) => {
+          let copy = [...prev];
+
+          if (!isUpdate) {
+            copy.unshift(input);
+          } else {
+            copy[foundIndex] = input;
+          }
+
+          return copy;
+        });
+      }}
+    >
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button>{isUpdate ? "수정" : "추가"}</button>
+    </form>
+  );
+};
+
+TodoForm.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.string),
+  setTodos: PropTypes.func,
+  isUpdate: PropTypes.bool,
+  payload: PropTypes.string,
+};
