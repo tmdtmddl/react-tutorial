@@ -1,18 +1,37 @@
 import { useEffect, useState } from "react";
 
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Pet = {
+  name: string;
+  age: number;
+  weight: number;
+  desexed: boolean;
+};
+
 const App = () => {
-  //useState랑 ()사이에 <>안에 타입을 지정해줌
-  const [a, setA] = useState<number>(0);
+  const [a, setA] = useState<string>("");
+  const [b, setB] = useState<number>(0);
 
-  const [s, setS] = useState<string>("0");
-
-  const [b, setB] = useState<boolean>(true);
+  const [p1, setP1] = useState<Person>({ name: "fldk", age: 23 });
+  const [pet1, setPet1] = useState<Pet>({
+    name: "dlf",
+    age: 23,
+    weight: 13,
+    desexed: false,
+  });
+  const [pets, setPets] = useState<Pet[]>([]); //pet을 담은 배열
+  const [people, setPeople] = useState<Person[]>([]); //person을 담은 배열
 
   useEffect(() => {
-    setA(12);
+    setPets([pet1]);
+    setPeople([p1]);
   }, []);
 
-  return <h1>App:{a}</h1>;
+  return <h1>App</h1>;
 };
 
 export default App;
