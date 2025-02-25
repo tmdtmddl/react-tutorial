@@ -19,16 +19,16 @@ const App = () => {
   const [p1, setP1] = useState<Person>({ name: "fldk", age: 23 });
   const [pet1, setPet1] = useState<Pet>({
     name: "dlf",
-    age: 23,
-    weight: 13,
-    desexed: false,
+    age: 3,
+    weight: 8,
+    desexed: true,
   });
   const [pets, setPets] = useState<Pet[]>([]); //pet을 담은 배열
   const [people, setPeople] = useState<Person[]>([]); //person을 담은 배열
 
   useEffect(() => {
-    setPets([pet1]);
-    setPeople([p1]);
+    setPets((prev) => [...prev, pet1]);
+    setPeople((prev) => [...prev, p1]);
   }, []);
 
   return <h1>App</h1>;
