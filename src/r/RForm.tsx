@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { v4 } from "uuid";
-import { FaPlus, FaRegTrashCan, FaRotate } from "react-icons/fa6";
+import { FaRegTrashCan, FaRotate, FaPlus } from "react-icons/fa6";
 
 interface Props {
   payload?: Requirement;
@@ -36,39 +36,46 @@ const RForm = ({ onCancel, onDone, payload }: Props) => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log({ isInsertingDesc });
     if (isInsertingDesc) {
       return;
     }
-    if (requirement) {
-      alert("기능 이름을 적어주세요");
+
+    if (requirement.title.length === 0) {
+      alert("기능 이름을 적어주세요.");
       return setTimeout(() => titleRef.current?.focus(), 100);
     }
+
     if (requirement.status.length === 0) {
-      alert("진행사항을 확인해주세요");
-      return setTimeout(() => {
-        statusRef.current?.showPicker();
-      }, 100);
+      alert("진행상태를 선택해주세요.");
+      return setTimeout(() => statusRef.current?.showPicker());
     }
+
     if (requirement.manager.length === 0) {
       if (directInserting) {
-        alert("담당자를 입력해주세요");
-        return setTimeout(() => {
-          managerRef2.current?.focus();
-        }, 100);
+        alert("담당자를 입력해주세요.");
+        return setTimeout(() => managerRef2.current?.focus(), 100);
       }
-      alert("담당자를 선택해주세요");
-      return setTimeout(() => {
-        managerRef.current?.focus();
-      }, 100);
-    }
-    alert(payload ? "요구사항을 수정했습니다" : "추가했습니다");
-    onDone(requirement);
-    // if(!payload){
-    //     setRequirement(
 
-    //     )
-    // }
+      alert("담당자를 선택해주세요.");
+      return setTimeout(() => managerRef.current?.showPicker(), 100);
+    }
+
+    alert(payload ? "요구사항을 수정했습니다." : "요구사항을 추가했습니다.");
+
+    onDone(requirement);
+
+    if (!payload) {
+      setRequirement({
+        descs: [],
+        id: v4(),
+        manager: "",
+        status: "",
+        title: "",
+      });
+
+      setTimeout(() => titleRef.current?.focus(), 100);
+      return;
+    }
     onCancel();
   };
 
@@ -81,7 +88,7 @@ const RForm = ({ onCancel, onDone, payload }: Props) => {
 
   return (
     <form
-      className="flex flex-col gap-y-2.5 border max-w-225 mx-auto p-5 md:px-0"
+      className="flex flex-col gap-y-2.5 max-w-225 mx-auto p-5 md:px-0"
       onSubmit={onSubmit}
     >
       <div className={div}>
@@ -114,9 +121,10 @@ const RForm = ({ onCancel, onDone, payload }: Props) => {
                   type="button"
                   className="cursor-pointer hover:text-red-500"
                   onClick={() => {
-                    console.log("delete", d);
                     const descs = [...requirement.descs];
+
                     descs.splice(index, 1);
+
                     setRequirement((prev) => ({ ...prev, descs }));
                   }}
                 >
@@ -143,29 +151,35 @@ const RForm = ({ onCancel, onDone, payload }: Props) => {
                   alert("상세 내용을 입력해주세요.");
                   return setTimeout(() => descRef.current?.focus(), 100);
                 }
+
+                if (e.nativeEvent.isComposing) {
+                  return;
+                }
                 setRequirement((prev) => ({
                   ...prev,
                   descs: [...prev.descs, desc],
                 }));
                 setDesc("");
                 setTimeout(() => descRef.current?.focus(), 100);
+              } else if (e.key === "Tab") {
+                setIsInsertingDesc(false);
+                setTimeout(() => statusRef.current?.showPicker(), 100);
               }
             }}
           />
         )}
+
+        <button
+          className="w-full rounded bg-gray-50 flex justify-center h-10 items-center hover:opacity-80 active:opacity-50 hover:bg-gray-100 cursor-pointer"
+          type="button"
+          onClick={() => {
+            setIsInsertingDesc(true);
+            setTimeout(() => descRef.current?.focus(), 100);
+          }}
+        >
+          <FaPlus />
+        </button>
       </div>
-      <button
-        type="button"
-        className="w-full rounded bg-gray-50 flex justify-center h-10 items-center hover:opacity-80 active:opacity-50 cusor-pointer"
-        onClick={() => {
-          setIsInsertingDesc(true);
-          setTimeout(() => {
-            descRef.current?.focus();
-          }, 100);
-        }}
-      >
-        <FaPlus />
-      </button>
 
       <div className="flex gap-x-2.5 items-end">
         <div className="flex gap-x-2.5 flex-2">
