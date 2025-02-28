@@ -1,66 +1,92 @@
-// // export {} 또는 export 변수. 함수 이름 이런 식으로 내보내기 했을 때는 {} 써서 꺼내옴
-// //! default로 내보내기 했을 때는 import 기본적으로 그 함수 또는 변수의 이름을 가져옴
-// // import 정말중요한함수 from "./lib/fn"
-// //! 내 마음대로 변경해서 가져올 수 있음
-// //! as 다른 이름
-// import { a as A, b as B, c as C, sayLoud as Fn2, VFN } from "./lib";
-// //! index.ts 파일을 통해 취합한 뒤 내보내기 하면 다른 곳에서는 무조건 {} 를 사용해서 꺼내옴
-// //! 객체처럼 취급
-
-// //! 같은 파일에서 다 꺼내올 수 있음. import 영역을 줄일 수 있음.
+// import { useState, useMemo, useEffect } from "react";
+// import ChilComponent from "./ChilComponent";
+// import ParentComponent from "./ParentComponent";
 
 // const App = () => {
-//   const { firstLetter, lastLetter, length, sayLoud } = "Helloooooox";
+//   const [count, setCount] = useState(1);
+//   // const children = [11, 12, 14, 17, 20];
+//   const [items] = useState(
+//     Array.from({ length: count * 999999 }, (_, i) => i + 1)
+//   );
+
+//   // const selectItem = useMemo(() => {
+//   //   const is10 = count === 10;
+//   //   return items.find((item) => is10 && item === count);
+//   // }, [count, items]);
+
+//   const selectItem = items.find((item) => (count === 10 ? item : undefined));
+
+//   useEffect(() => {
+//     console.log("cheking item in useMemo....");
+//   }, [selectItem]);
 //   return (
 //     <div>
-//       <h1>
-//         {firstLetter} {lastLetter} {length}
-//       </h1>
-//       <button onClick={() => Fn2("Helllooasdfasdfasdfs")}>Click Me</button>
+//       <h1>Count: {count}</h1>
+//       <p>selecte Item : {selectItem}</p>
+//       <button
+//         onClick={() => setCount((prev) => prev + 1)}
+//         className="bg-yellow-100 rounded p-1 border border-yellow-500"
+//       >
+//         click
+//       </button>
+//       {/* <ParentComponent /> */}
+//       {/* {children.map((age, index) => (
+//         <ChilComponent key={index} age={age} />
+//       ))} */}
 //     </div>
 //   );
 // };
 
 // export default App;
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import ParentComponent from "./ParentComponent";
+//! useMemo는 리액트 훅 그래서 ()를 쓰는 함수 호출법을 적용
+//! []에 감지할것을 넣어두지 않으면 메모리에 저장해서 바뀌지 않도록 함
 
 const App = () => {
-  const payload = "hse";
-  const [myName, setMyName] = useState("hse");
-  const nameMessage = useMemo<string | null>(() => {
-    if (myName.length === 0) {
-      return "이름을 입력해주세요";
+  const [text, setText] = useState("hse");
+  const memoedText = useMemo(() => {
+    const length = text.length;
+
+    //! useMemo안에 조건을 걸게  되면 해당 조건에 부합할 때 까지 아무런 동작안함
+    //! 조건이 부합하지 않을 때 딱 한번만 더 동작함
+    if (length % 10 === 0) {
+      return text;
     }
-    if (myName.length < 2) {
-      return "짧아요";
+    return "10의 배수 ㄴㄴ";
+  }, [text]);
+
+  const isTextMemoed = useCallback(() => {
+    //! useCallback도 리액트 훅 함수 처럼()써서 호출
+    //! ()안에는 ()=> 콜백함수를 써야됨
+    //! []여기에 감지할 것들을 넣어서 함수가 동작할 때 감지할 것들만 보고 잇게끔 만듭니다.
+    //? js에서 메모리를 할당하는 것은 object,function 입니다.
+    //? 메모리가 쌓이면 느려짐
+    //? object,function등 메모리를 할당하는 친구들은 usememo,usecallback으로 감싸줌
+
+    const length = memoedText.length;
+
+    if (length % 10 === 0) {
+      return memoedText;
     }
-    if (myName.length > 10) {
-      return "길어요";
-    }
-    return null;
-  }, [myName]);
+    return "10의 배수 ㄴㄴ";
+  }, [memoedText]);
 
   useEffect(() => {
-    console.log(nameMessage);
-  }, [nameMessage]);
+    console.log("checking text", isTextMemoed());
+  }, [isTextMemoed]);
   return (
     <div>
-      <form
-        action=""
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log(myName);
-        }}
-      >
-        <input
-          type="text"
-          value={myName}
-          onChange={(e) => setMyName(e.target.value)}
-          placeholder="이름을 입력해주세요."
-        />
-        <button>Check</button>
-      </form>
+      {/* <h1>input checking</h1>
+      <h1>Memoed Text : {memoedText}</h1>
+      <input
+        type="text"
+        className="border"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      /> */}
+      <ParentComponent />
     </div>
   );
 };
