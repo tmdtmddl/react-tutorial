@@ -2,10 +2,9 @@ import { useState, memo, useCallback } from "react";
 import { FaRegTrashCan, FaPen } from "react-icons/fa6";
 import RForm from "./RForm";
 
-//! memo ,useMemo memo
+//! memo ,  useMemo memo
 //! memoize
-//! 수시로변한는 state를 넣지말것
-//! 수시로 바뀌는 배열은 memo쓰지말것
+//! 수시로 바뀌는 배열
 interface Props {
   payload: Requirement;
   onDelete: (id: string) => void;
@@ -15,9 +14,7 @@ interface Props {
 const RItem = ({ onDelete, onEdit, payload }: Props) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const editHandler = useCallback(() => {
-    setIsEditing((prev) => !prev);
-  }, []);
+  const editHandler = useCallback(() => setIsEditing((prev) => !prev), []);
 
   return (
     <li
