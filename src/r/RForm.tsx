@@ -49,57 +49,62 @@ const RForm = ({ onCancel, onDone, payload }: Props) => {
     return null;
   }, [requirement.title]);
 
+  const statusMessage = useMemo(() => {}, []);
+
   useEffect(() => {
     console.log({ titleMessage });
   }, [titleMessage]);
 
-  // const onSubmit = () => {
-  //   if (isInsertingDesc) {
-  //     return;
-  //   }
-
-  //   if (titleMessage) {
-  //     alert(titleMessage);
-  //     return setTimeout(() => titleRef.current?.focus(), 100);
-  //   }
-
-  //   if (requirement.status.length === 0) {
-  //     alert("진행상태를 선택해주세요.");
-  //     return setTimeout(() => statusRef.current?.showPicker());
-  //   }
-
-  //   if (requirement.manager.length === 0) {
-  //     if (directInserting) {
-  //       alert("담당자를 입력해주세요.");
-  //       return setTimeout(() => managerRef2.current?.focus(), 100);
-  //     }
-
-  //     alert("담당자를 선택해주세요.");
-  //     return setTimeout(() => managerRef.current?.showPicker(), 100);
-  //   }
-
-  //   alert(payload ? "요구사항을 수정했습니다." : "요구사항을 추가했습니다.");
-
-  //   onDone(requirement);
-
-  //   if (!payload) {
-  //     setRequirement({
-  //       descs: [],
-  //       id: v4(),
-  //       manager: "",
-  //       status: "",
-  //       title: "",
-  //     });
-
-  //     setTimeout(() => titleRef.current?.focus(), 100);
-  //     return;
-  //   }
-  //   onCancel();
-  // };
-
   const onSubmit = useCallback(() => {
-    console.log(requirement);
-  }, [requirement]);
+    if (isInsertingDesc) {
+      return;
+    }
+    if (titleMessage) {
+      alert(titleMessage);
+      return setTimeout(() => titleRef.current?.focus(), 100);
+    }
+    if (titleMessage) {
+      alert(titleMessage);
+      return setTimeout(() => titleRef.current?.focus(), 100);
+    }
+
+    if (requirement.status.length === 0) {
+      alert("진행상태를 선택해주세요.");
+      return setTimeout(() => statusRef.current?.showPicker());
+    }
+
+    if (requirement.manager.length === 0) {
+      if (directInserting) {
+        alert("담당자를 입력해주세요.");
+        return setTimeout(() => managerRef2.current?.focus(), 100);
+      }
+
+      alert("담당자를 선택해주세요.");
+      return setTimeout(() => managerRef.current?.showPicker(), 100);
+    }
+
+    alert(payload ? "요구사항을 수정했습니다." : "요구사항을 추가했습니다.");
+
+    onDone(requirement);
+
+    if (!payload) {
+      setRequirement({
+        descs: [],
+        id: v4(),
+        manager: "",
+        status: "",
+        title: "",
+      });
+
+      setTimeout(() => titleRef.current?.focus(), 100);
+      return;
+    }
+    onCancel();
+  }, [isInsertingDesc, titleMessage, titleRef]);
+
+  // const onSubmit = useCallback(() => {
+  //   console.log(requirement);
+  // }, [requirement]);
 
   useEffect(
     () => {
