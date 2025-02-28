@@ -5,4 +5,4 @@ export * from "./database";
 //? 해당 경로 파일 바깥에서 할 수 있습니다.
 
 //! default 내보낸 값을 내보내기
-export { default as VFN } from "./Fn";
+export { default as VFN } from "./fn";
