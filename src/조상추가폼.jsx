@@ -9,11 +9,19 @@ const 조상추가폼 = () => {
   useEffect(() => {
     console.log(조상들);
   }, [조상들]);
+
   const dispatch = useDispatch();
+
   return (
     <div>
       <button onClick={() => 조상추가("김진짜조상")}>김 ㅇㅇㅇ 추가</button>
-      <button onClick={() => dispatch(addStudent())}>학생 추가</button>
+      <button
+        onClick={() => {
+          dispatch(addStudent());
+        }}
+      >
+        학생 추가
+      </button>
     </div>
   );
 };
