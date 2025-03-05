@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./app/index";
-import Signup from "./app/signup";
+import Signup from "./app/signup/index";
 
 const AppRouter = () => {
   return (
