@@ -2,6 +2,7 @@ import { PropsWithChildren, useCallback, useState, useEffect } from "react";
 import { Auth } from "../contexts";
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
+  //! process.env.NODE_ENV === 'production' |'development'|
   const [user, setUser] = useState<Auth.User | null>(
     // process.env.NODE_ENV === "development"
     //   ? {

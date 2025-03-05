@@ -103,7 +103,7 @@ const RequirementForm = () => {
       return "상태기능을 입력해주세요";
     }
     return null;
-  }, [desc]);
+  }, [desc, isInsertingDesc]);
 
   const onSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -130,16 +130,16 @@ const RequirementForm = () => {
     },
     [
       isInsertingDesc,
-      mMessage,
       sMessage,
+      mMessage,
       tMessage,
-      dMessage,
       r,
       isUpdating,
       focus,
+      alert,
       create,
       update,
-      alert,
+      navi,
     ]
   );
   useEffect(() => {
