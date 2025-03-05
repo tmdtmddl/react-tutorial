@@ -101,7 +101,7 @@ const Home = () => {
         </label>
         <input
           ref={emailRef}
-          className="bg-gray-100 h-10 px-2.5 rounded outline-none focus:border border-sky-500 focus:bg-gray-50"
+          className="bg-gray-100 h-10 px-2.5 rounded outline-none focus:border border-yellow-500 focus:bg-gray-50"
           type="email"
           id="email"
           placeholder="yourEmail@email.com"
@@ -117,7 +117,7 @@ const Home = () => {
         </label>
         <input
           ref={passwordRef}
-          className="bg-gray-100 h-10 px-2.5 rounded outline-none focus:border border-sky-500 focus:bg-gray-50"
+          className="bg-gray-100 h-10 px-2.5 rounded outline-none focus:border border-yellow-500 focus:bg-gray-50"
           type="password"
           id="password"
           placeholder="* * * * * * * *"
@@ -127,7 +127,7 @@ const Home = () => {
           }
         />
       </div>
-      <button className="rounded bg-sky-500 text-white h-10 mt-2.5 cursor-pointer hover:opacity-80 active:opacity-50">
+      <button className="rounded bg-green-500 text-white h-10 mt-2.5 cursor-pointer hover:opacity-80 active:opacity-50">
         로그인
       </button>
     </form>

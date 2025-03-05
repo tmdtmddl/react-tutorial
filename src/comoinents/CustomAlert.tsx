@@ -60,7 +60,7 @@ const Button = ({ onClick, text, index }: Alert.Button & { index: number }) => {
   const st1 =
     "rounded px-2.5 py-1.5 border border-gray-200 text-gray-500 cursor-pointer hover:text-gray-700 hover:border-gray-700 transition";
   const st2 =
-    "rounded px-2.5 py-1.5 cursor-pointer transition bg-blue-500 text-white hover:bg-blue-400";
+    "rounded px-2.5 py-1.5 cursor-pointer transition bg-green-500 text-white hover:bg-green-400";
   return (
     <button className={index === 1 ? st2 : st1} onClick={onClick}>
       {text ?? "확인"}

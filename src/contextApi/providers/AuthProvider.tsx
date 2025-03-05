@@ -3,12 +3,13 @@ import { Auth } from "../contexts";
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<Auth.User | null>(
-    process.env.NODE_ENV === "development"
-      ? {
-          email: "test@teat.com",
-          uid: "testUid",
-        }
-      : null
+    // process.env.NODE_ENV === "development"
+    //   ? {
+    //       email: "test@teat.com",
+    //       uid: "testUid",
+    //     }
+    //   :
+    null
   );
   const [initialized, setInitialized] = useState(false);
 

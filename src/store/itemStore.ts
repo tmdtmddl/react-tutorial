@@ -25,7 +25,7 @@ export interface Props {
 export const use = create<Props>((set) => ({
   items: [
     {
-      descs: [],
+      descs: ["df", "Df", "Df "],
       id: "asdfasdfds",
       manager: "강산",
       status: "계획중",
