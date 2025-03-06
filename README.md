@@ -92,3 +92,19 @@ index.ts를 사용해서 많은 컴포넌트를 취합하여 재보내기 하는
 1. 확장형
 2. 제한형
 3. 복합성 = 제한형 + 확장할 수 있는 통로 마련해줌
+
+# Form Control
+
+1. form 태그안에는 무조건 하나의 submit타입이 버튼이 있어야함
+
+- 다른 button을 만들때는 type을 button으로 줘야함
+
+2. input,select ref 연결해서 foucs또는 showpicker까지 고려해야함
+
+- select 태그는 빈
+
+3. error/경고 메세지를 useMemo로 담아서 사용
+
+4. onSubmit 함수를 만들때 useCallback을 사용해서 만듬
+
+- 경고메세지 + ref 참조하여 메세지가 있는 경우 input창까지 날라줘야함

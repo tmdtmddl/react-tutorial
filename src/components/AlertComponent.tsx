@@ -37,7 +37,7 @@ const AlertComponent = () => {
           <Container.Col>
             <Container.Row className="gap-x-2.5">
               <img
-                src="https://cdn.pixabay.com/photo/2018/06/30/19/02/panda-3508153_1280.jpg"
+                src="https://cdn.pixabay.com/photo/2018/12/16/16/48/hamster-3878853_640.jpg"
                 alt="alert message"
                 width={40}
                 height={40}
@@ -62,6 +62,7 @@ const AlertComponent = () => {
             </Container.Row>
           </Container.Col>
         </Animated.Emerge>
+        <span onClick={closeFn} className="absolute w-full top-0 left-0 " />
       </Container.Row>
     )
   );

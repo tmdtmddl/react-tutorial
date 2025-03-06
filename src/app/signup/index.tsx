@@ -7,7 +7,7 @@ import Content_1 from "./Content_1";
 import Content_2 from "./Content_2";
 import Content_3 from "./Content_3";
 import Content_4 from "./Content_4";
-import { stringValidator } from "../../lib";
+import { dobValidator, heghtWeightValidtor, stringValidator } from "../../lib";
 import { Alert } from "../../contexts";
 
 const Signup = () => {
@@ -263,7 +263,62 @@ const Signup = () => {
     [name]
   );
 
+  const heightMessage = useMemo(() => {}, []);
+  const dobMessage = useMemo(() => {
+    if (stringValidator(dob)) {
+      return "생년월일 입력해주세요";
+    }
+    let split: string[] = [];
+    if (dob.includes(".") || dob.includes("-") || dob.includes("/")) {
+      if (dob.includes(".")) {
+        split = dob.split(".");
+      } else if (dob.includes("-")) {
+        split = dob.split("-");
+      } else if (dob.includes("/")) {
+        split = dob.split("/");
+      }
+    } else {
+      if (dob.length !== 8) {
+        return "";
+      }
+      const year = `${dob[0]}${dob[1]}${dob[2]}${dob[3]}`;
+      const month = `${dob[4]}${dob[5]}`;
+      const date = `${dob[6]}${dob[7]}`;
+
+      split = [year, month, date];
+    }
+    dobValidator(split);
+  }, [dob]);
+
+  const mobileMessage = useMemo(() => {
+    if (stringValidator(dob)) {
+      return "생년월일 입력해주세요";
+    }
+    let split: string[] = [];
+    if (dob.includes(".") || dob.includes("-") || dob.includes("/")) {
+      if (dob.includes(".")) {
+        split = dob.split(".");
+      } else if (dob.includes("-")) {
+        split = dob.split("-");
+      } else if (dob.includes("/")) {
+        split = dob.split("/");
+      }
+    } else {
+      if (dob.length !== 8) {
+        return "";
+      }
+      const year = `${dob[0]}${dob[1]}${dob[2]}${dob[3]}`;
+      const month = `${dob[4]}${dob[5]}`;
+      const date = `${dob[6]}${dob[7]}`;
+
+      split = [year, month, date];
+    }
+    dobValidator(split);
+  }, [dob]);
+
+  const interestMessage = useMemo(() => {}, []);
   const { alert } = Alert.use();
+  const onMessage = useMemo(() => {}, []);
   const onSubmit = useCallback(() => {
     const next = (number: number) => navi(`/signup?content=${number}`);
     if (!content) {
