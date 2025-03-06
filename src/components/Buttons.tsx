@@ -1,4 +1,3 @@
-
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Link as L } from "react-router-dom";
@@ -19,11 +18,16 @@ export const Opacity = (props: ButtonType) => (
       "hover:opacity-80 active:opacity-50",
       props?.className
     )}
+    type={props?.type ?? "button"}
   />
 );
 
 export const Pressable = (props: ButtonType) => (
-  <button {...props} className={twMerge(sharedButtonStyle, props?.className)} />
+  <button
+    {...props}
+    className={twMerge(sharedButtonStyle, props?.className)}
+    type={props?.type ?? "button"}
+  />
 );
 
 type LinkType = React.DetailedHTMLProps<

@@ -1,4 +1,4 @@
-interface AdiminUser {
+interface AdminUser {
   email: string;
   password: string;
   uid?: string;
@@ -8,25 +8,36 @@ interface User {
   id: string;
   createdAt: number;
 
+  //? NO CONTENT
   name: string;
   dob: string;
+  mobile: string;
+
+  //? 0
+  gender: UserGender | "";
   email: string;
+
+  //? 1
   address: string;
-  gender: UserGender;
   purposes: UserPurpose[];
   distance: number;
 
+  //? 2
+  isVegetarian: boolean;
   appearance: UserAppearance;
+
+  //? 3
+  workouts: UserCount | string;
   drinks: UserCount | string;
   smokes: UserCount | string;
-  workouts: UserCount | string;
-  isVegetarian: boolean;
-  interests: UserInterest[];
+
+  //? 4
   points: UserPoint[];
+  interests: UserInterestType[];
 }
 
 type UserGender = "남" | "녀" | "안알려줌";
-type UserPurpose = "진지한만남" | "가벼운만남" | "친목도모" | "개방된 연애";
+type UserPurpose = "진지한 만남" | "가벼운 만남" | "친목도모" | "개방된 연애";
 type UserCount =
   | "1회"
   | "2회"
@@ -51,12 +62,12 @@ interface UserInterest {
 
 type UserInterestType =
   | "음악"
-  | "영화&예능"
-  | "미술&그림"
-  | "음식&요리"
+  | "영화 & 예능"
+  | "미술 & 그림"
+  | "음식 & 요리"
   | "술자리"
   | "여행"
-  | "운동&건강"
+  | "운동 & 건강"
   | "캠핑"
   | "정의구현"
   | "문학"
@@ -68,14 +79,13 @@ type UserInterestType =
 interface UserAppearance {
   height: UserHeight;
   weight: UserWeight;
-  bodyType: UserBodyType;
+  bodyType: UserBodyType | "";
 }
 
 interface UserHeight {
   value: number;
   isCM: boolean;
 }
-
 interface UserWeight {
   value: number;
   isKG: boolean;
