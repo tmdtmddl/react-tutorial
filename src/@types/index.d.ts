@@ -1,3 +1,5 @@
+//! 필요한 타입들을 다 모아서 정리 해놓은 곳
+
 interface AdminUser {
   email: string;
   password: string;

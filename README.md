@@ -101,7 +101,11 @@ index.ts를 사용해서 많은 컴포넌트를 취합하여 재보내기 하는
 
 2. input,select ref 연결해서 foucs또는 showpicker까지 고려해야함
 
-- select 태그는 빈
+- select 태그는 빈 option을 placeholder로 사용
+
+  - option을 일일이 입력하지 않고 배열에 담아서 map으로 뿌림
+
+- input 태그는 placeholder 속성을 사용
 
 3. error/경고 메세지를 useMemo로 담아서 사용
 

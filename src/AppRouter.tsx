@@ -9,7 +9,9 @@ const AppRouter = () => {
       <AlertComponent />
       <BrowserRouter>
         <Routes>
+          {/* 경로는 /이며 Home이라는 컴포넌트로 이동 */}
           <Route path="/" Component={Home} />
+          {/*  경로는 signup이며 Singnup이라는 컴포넌트로 이동*/}
           <Route path="signup" Component={Signup} />
         </Routes>
       </BrowserRouter>
