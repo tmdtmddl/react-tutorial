@@ -1,6 +1,6 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Form, Button, Typo } from "../../components";
-import { useCallback, useState, useMemo, useRef } from "react";
+import { useCallback, useState, useMemo, useRef, useEffect } from "react";
 import Content_n from "./Content_n";
 import Content_0 from "./Content_0";
 import Content_1 from "./Content_1";
@@ -14,6 +14,8 @@ import {
   heightWeightValidator,
   mobileValidator,
   stringValidator,
+  authService,
+  dbService,
 } from "../../lib";
 import { Alert } from "../../contexts";
 
@@ -21,7 +23,7 @@ const Signup = () => {
   const content = useSearchParams()[0].get("content"); // ?
   const navi = useNavigate(); //useNavigate를 사용하기 위해서 navi라는 변수에다가 담기
 
-  // User의 타입을 useMemo를 이용해서 initialState라는 변수에 담아놈놈
+  // User의 타입을 useMemo를 이용해서 initialState라는 변수에 담아놈
   const initialState = useMemo<User>(
     () => ({
       address: "",
@@ -508,6 +510,12 @@ const Signup = () => {
     pointMessage,
     props,
   ]);
+
+  // useEffect(() => {
+  //   const fn = async () => {
+  //     const hashedPassword = await bcrypt.hash(password, 12);
+  //   };
+  // }, []);
 
   return (
     <Form.Container className="m-5 max-w-100 mx-auto" onSubmit={onSubmit}>

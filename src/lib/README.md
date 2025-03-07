@@ -26,11 +26,11 @@ firebase.initializeApp(firevaseSonfig)
 const db = firebase.firestore;
 //firestore 그자체
 const dbService = firebase.firestore();
-//?
+//firestore의 database 기능
 const auth = firebase.auth;
-//?
+//인증 그자체
 const authService = firebase.auth();
-//?
+//인증서비스기능
 
 export { firebase, db, dbService, auth, authService };
 ```
@@ -88,10 +88,19 @@ export { firebase, db, dbService, auth, authService };
             return alert(error.message)
         }
     }
+        async function asyncFn(){
+      try {
+     await database와신호교환()
+     alert(성공메세지)
+       } catch (error: any ){
+     return alert(error.message)
+      }
+         }
+
 
     ```
 
-    **비동기함수로 안하면**?
+    **비동기함수로 코드 안 짜면 데이터베이스 안기다리고 코드가 막 실행됨**
 
     3. CREATE 데이터 베이스에 자료추가하기
 
@@ -124,4 +133,8 @@ export { firebase, db, dbService, auth, authService };
 
     객체를 넣어야함
 
-    객체에 넣어야하는 값이 이미 있는 값이라면 해당 내용을 변경??
+    객체에 넣어야하는 값이 이미 있는 값이라면 해당 내용을 변경
+
+    새로운 내용이라면 추가 함
+
+    ref.doc(아이디).update(수정할내용 또는 새로추가할내용)
