@@ -104,8 +104,8 @@ type UserBodyType =
 interface Survey {
   q: string;
   answers: string[];
-  isMultiple: boolean;
   options: string[];
   id: string;
+  isMultiple: boolean;
   createdAt: string;
 }

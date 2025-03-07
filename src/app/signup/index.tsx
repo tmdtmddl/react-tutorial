@@ -1,6 +1,7 @@
+import bcrypt from "bcryptjs";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Form, Button, Typo } from "../../components";
-import { useCallback, useState, useMemo, useRef, useEffect } from "react";
+import { useCallback, useState, useMemo, useRef } from "react";
 import Content_n from "./Content_n";
 import Content_0 from "./Content_0";
 import Content_1 from "./Content_1";
@@ -14,16 +15,15 @@ import {
   heightWeightValidator,
   mobileValidator,
   stringValidator,
-  authService,
   dbService,
 } from "../../lib";
 import { Alert } from "../../contexts";
+import { v4 } from "uuid";
 
 const Signup = () => {
-  const content = useSearchParams()[0].get("content"); // ?
-  const navi = useNavigate(); //useNavigate를 사용하기 위해서 navi라는 변수에다가 담기
+  const content = useSearchParams()[0].get("content");
+  const navi = useNavigate();
 
-  // User의 타입을 useMemo를 이용해서 initialState라는 변수에 담아놈
   const initialState = useMemo<User>(
     () => ({
       address: "",
@@ -57,10 +57,7 @@ const Signup = () => {
     []
   );
 
-  // useState를 이용해서 초기값으로 User를 담아놓은 initialState변수를 설정
   const [props, setProps] = useState(initialState);
-
-  //props라는 변수에서 필요한 값들을 변수로 쓸수있게 뽑아옴
   const {
     address,
     appearance,
@@ -79,31 +76,27 @@ const Signup = () => {
     workouts,
   } = props;
 
-  //onChange라는 함수를 만들어서 onChange속성에 넣을 수 있게 만듬
   const onChange = useCallback(
     (target: keyof User, value: any) =>
       setProps((prev) => ({ ...prev, [target]: value })),
     []
   );
 
-  // useState를 이용해서 pws라는 변수 선언
   const [pws, setPws] = useState({
     pw: "",
     con: "",
   });
+  const onChangePw = useCallback(
+    (target: "pw" | "con", value: string) =>
+      setPws((prev) => ({ ...prev, [target]: value })),
+    []
+  );
 
-  //onChangePW라는 함수를 만들어서 타겟은 "pw"or"con"이고 vlaue는 문자열로 타입을 지정해서 onChange속성에 넣을로직을 만들기
-  const onChangePw = useCallback((target: "pw" | "con", value: string) => {
-    setPws((prev) => ({ ...prev, [target]: value }));
-  }, []);
-
-  // useRef를 이용해서 input을 건들이기 위해 초기값은 null로주고 타입을 HTMLInputElement을 줌
   //! content = X
   const nameRef = useRef<HTMLInputElement>(null);
   const dobRef = useRef<HTMLInputElement>(null);
   const mobileRef = useRef<HTMLInputElement>(null);
 
-  //속성을 한번에 다 전달 하기 위해 useMemo를 이용해서 다담기
   const payload_n = useMemo(
     () => ({
       nameRef,
@@ -117,13 +110,12 @@ const Signup = () => {
     [nameRef, dobRef, mobileRef, name, dob, mobile, onChange]
   );
 
-  // useRef를 이용해서 input과 select를 건들이기 위해 초기값은 null로주고 타입을 HTMLInputElement과HTMLSelectElement을 줌
   //! content = 0
   const genderRef = useRef<HTMLSelectElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
   const conRef = useRef<HTMLInputElement>(null);
-  //속성을 한번에 다 전달 하기 위해 useMemo를 이용해서 다담기
+
   const payload_0 = useMemo(
     () => ({
       gender,
@@ -148,12 +140,12 @@ const Signup = () => {
       onChangePw,
     ]
   );
-  // useRef를 이용해서 input과 select를 건들이기 위해 초기값은 null로주고 타입을 HTMLInputElement과HTMLSelectElement을 줌
+
   //! content = 1
   const addressRef = useRef<HTMLInputElement>(null);
   const distanceRef = useRef<HTMLSelectElement>(null);
   const purposeRef = useRef<HTMLSelectElement>(null);
-  //속성을 한번에 다 전달 하기 위해 useMemo를 이용해서 다담기
+
   const payload_1 = useMemo(
     () => ({
       address,
@@ -166,12 +158,12 @@ const Signup = () => {
     }),
     [address, distance, purposes, onChange, addressRef, distanceRef, purposeRef]
   );
-  // useRef를 이용해서 input과 select를 건들이기 위해 초기값은 null로주고 타입을 HTMLInputElement과HTMLSelectElement을 줌
+
   //! content = 2
   const heightRef = useRef<HTMLInputElement>(null);
   const weightRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLSelectElement>(null);
-  //속성을 한번에 다 전달 하기 위해 useMemo를 이용해서 다담기
+
   const payload_2 = useMemo(
     () => ({
       isVegetarian,
@@ -183,12 +175,12 @@ const Signup = () => {
     }),
     [isVegetarian, appearance, onChange, heightRef, weightRef, bodyRef]
   );
-  // useRef를 이용해서 select를 건들이기 위해 초기값은 null로주고 타입을 HTMLSelectElement을 줌
+
   //! content = 3
   const workoutRef = useRef<HTMLSelectElement>(null);
   const drinkRef = useRef<HTMLSelectElement>(null);
   const smokeRef = useRef<HTMLSelectElement>(null);
-  //속성을 한번에 다 전달 하기 위해 useMemo를 이용해서 다담기
+
   const payload_3 = useMemo(
     () => ({
       workouts,
@@ -201,22 +193,20 @@ const Signup = () => {
     }),
     [workouts, drinks, smokes, onChange, workoutRef, drinkRef, smokeRef]
   );
-  // useRef를 이용해서 select를 건들이기 위해 초기값은 null로주고 타입을 HTMLSelectElement을 줌
+
   //! content = 4
   const interestRef = useRef<HTMLSelectElement>(null);
   const pointRef = useRef<HTMLSelectElement>(null);
-  //속성을 한번에 다 전달 하기 위해 useMemo를 이용해서 다담기
+
   const payload_4 = useMemo(
     () => ({ interests, points, onChange, interestRef, pointRef }),
     [interests, points, onChange, interestRef, pointRef]
   );
 
-  //focus를 할 곳을 스위치문을 이용해서 focus,showpick작업(setTimeout함수를 사용해서 1초뒤에 집중되게함)
   const focus = useCallback(
     (target: keyof User | "pw" | "con" | keyof UserAppearance) => {
       setTimeout(() => {
         switch (target) {
-          //target이 "address"일 때 addressRef로 포커스 해줘
           case "address":
             return addressRef.current?.focus();
           case "con":
@@ -278,13 +268,10 @@ const Signup = () => {
     ]
   );
 
-  //useMemo를 이용해서 이름이 입력이 안됬을 때 경고할 메세지 담기
   const nameMessage = useMemo(
     () => stringValidator(name, "이름을 입력해주세요."),
     [name]
   );
-
-  //useMemo를 이용해서 생년월일이 입력이 안됬을 때 경고할 메세지 담기
   const dobMessage = useMemo(() => {
     if (stringValidator(dob)) {
       return "생년월일을 입력해주세요.";
@@ -406,7 +393,7 @@ const Signup = () => {
   );
 
   const { alert } = Alert.use();
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
     const next = () => navi(`/signup?content=${Number(content) + 1}`);
 
     if (!content) {
@@ -483,7 +470,17 @@ const Signup = () => {
           return alert(pointMessage, [{ onClick: () => focus("points") }]);
         }
 
-        return console.log(props);
+        try {
+          const id = v4();
+          const ref = dbService.collection("users").doc(id);
+          const hashedPassword = await bcrypt.hash(pws.pw, 12);
+
+          await ref.set({ ...props, password: hashedPassword, id });
+          alert("회원가입을 축하드립니다!");
+        } catch (error: any) {
+          return alert(error.message);
+        }
+        return;
     }
   }, [
     navi,
@@ -509,13 +506,8 @@ const Signup = () => {
     interestMessage,
     pointMessage,
     props,
+    pws.pw,
   ]);
-
-  // useEffect(() => {
-  //   const fn = async () => {
-  //     const hashedPassword = await bcrypt.hash(password, 12);
-  //   };
-  // }, []);
 
   return (
     <Form.Container className="m-5 max-w-100 mx-auto" onSubmit={onSubmit}>
