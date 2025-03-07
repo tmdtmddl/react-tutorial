@@ -93,7 +93,6 @@ const Signup = () => {
   //onChangePW라는 함수를 만들어서 타겟은 "pw"or"con"이고 vlaue는 문자열로 타입을 지정해서 onChange속성에 넣을로직을 만들기
   const onChangePw = useCallback((target: "pw" | "con", value: string) => {
     setPws((prev) => ({ ...prev, [target]: value }));
-    console.log("con");
   }, []);
 
   // useRef를 이용해서 input을 건들이기 위해 초기값은 null로주고 타입을 HTMLInputElement을 줌
