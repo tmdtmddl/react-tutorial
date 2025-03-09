@@ -48,7 +48,7 @@ export { firebase, db, dbService, auth, authService };
         1. useState , useEffect 사용
 
             가져올 데이터를 담을 컨테이넌를  useState로 만듬
-            useEffect로 실시간반응 코들르 짬
+            useEffect로 실시간반응 코드를 짬
 
             ```javascript
             const [items,setItem ]=useState<Item[]>([])
