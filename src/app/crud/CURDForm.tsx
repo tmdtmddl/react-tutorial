@@ -1,62 +1,77 @@
-import { useState, useRef, useCallback, useMemo, FormEvent } from "react";
-import { Button, Form } from "../../components";
-import { v4 } from "uuid";
+import { useState, useMemo, useCallback, useRef } from "react";
+import { Button, Container, Form } from "../../components";
+import { Todo } from ".";
+import { dbService } from "../../lib";
 
-interface NameProps {
-  id: string | null;
-  name: string;
+interface Props {
+  payload?: Todo;
+  onDone?: () => void;
 }
 
-const CURDForm = ({ curds, setCurds }) => {
-  const initialState: NameProps = useMemo(
-    () => ({
-      id: v4(),
-      name: "",
-    }),
-    []
-  );
-  const [curd, setCurd] = useState(initialState);
+const CRUDForm = ({ onDone, payload }: Props) => {
+  const initialState = useMemo<Todo>(() => {
+    if (payload) {
+      return payload;
+    }
+    return { id: "", isDone: false, text: "" };
+  }, [payload]);
+
+  const [todo, setTodo] = useState(initialState);
 
   const ref = useRef<HTMLInputElement>(null);
 
-  const curdMessage = useMemo(() => {
-    const name = curd.name;
-    if (name.length === 0) {
-      return "이름을 입력해주세요";
+  const onSubmit = useCallback(async () => {
+    if (todo.text.length === 0) {
+      alert("할 일을 입력하세요.");
+      return ref.current?.focus();
     }
-    return null;
-  }, [curd.name]);
+    if (payload && payload.text === todo.text) {
+      alert("변경사항이 없습니다.");
+      return ref.current?.focus();
+    }
 
-  const onSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const focus = (target: keyof NameProps) => {
-        setTimeout(() => {
-          if (target === "name") {
-            return ref.current?.focus();
-          }
-        }, 100);
-      };
-      if (curdMessage) {
-        alert(curdMessage);
-        return focus("name");
+    const todoRef = dbService.collection("todos");
+
+    try {
+      if (payload) {
+        //Todo: 수정로직
+        await todoRef.doc(payload.id).update(todo);
+        alert("수정되었습니다.");
+      } else {
+        //Todo: CREATE
+        await todoRef.add(todo);
+        // await todoRef.doc(todo.id).set(todo);
+        alert("추가되었습니다.");
+        setTodo(initialState);
       }
 
-      alert(`${curd.name}님 반가워요!`);
-      setCurds(initialState);
-    },
-    [curdMessage, curd.name, ref, initialState, setCurds]
-  );
+      if (onDone) {
+        onDone();
+      }
+    } catch (error: any) {
+      return alert(error.message);
+    }
+  }, [onDone, todo, ref, payload, initialState]);
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-y-2.5">
-      <Form.Label>이름을 입력하세요.</Form.Label>
-      <Form.Input ref={ref} className="border border-amber-300 " />
-      <Button.Opacity type="submit" className="bg-teal-600 text-white">
-        선택
+    <Form.Container className="w-full max-w-75 p-5 mx-auto" onSubmit={onSubmit}>
+      <Container.Col className="gap-y-1">
+        <Form.Label htmlFor="todo">할일</Form.Label>
+        <Form.Input
+          id="todo"
+          ref={ref}
+          value={todo.text}
+          onChange={(e) =>
+            setTodo((prev) => ({ ...prev, text: e.target.value }))
+          }
+          placeholder="할 일을 추가하세요."
+        />
+      </Container.Col>
+      <Button.Opacity type="submit" className="bg-sky-500 text-white">
+        {payload ? "수정" : "추가"}
       </Button.Opacity>
-    </form>
+    </Form.Container>
   );
 };
 
-export default CURDForm;
+export default CRUDForm;

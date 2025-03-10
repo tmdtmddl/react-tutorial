@@ -1,5 +1,3 @@
-//! 필요한 타입들을 다 모아서 정리 해놓은 곳
-
 interface AdminUser {
   email: string;
   password: string;
@@ -105,7 +103,8 @@ interface Survey {
   q: string;
   answers: string[];
   options: string[];
-  id: string;
+  id: string; // v4() 랜덤 무작위로 생성 유저와 관계를 알기 어렵다.
+  //! id => user id를 씀
   isMultiple: boolean;
   createdAt: string;
 }

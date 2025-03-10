@@ -1,16 +1,44 @@
-import { useState } from "react";
-import CURDForm from "./CURDForm";
-import CURDItem from "./CURDItem";
+import { useState, useEffect } from "react";
+import { dbService } from "../../lib";
+import CRUDForm from "./CURDForm";
+import CRUDItem from "./CURDItem";
 
+export interface Todo {
+  text: string;
+  id: string;
+  isDone: boolean;
+}
+//Todo: Container 만들기, 데이터 실시간으로 받아오기
+//Todo Form, Item
 const CRUD = () => {
-  const [curds, setCurds] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  // const [isPending, setIsPending] = useState(true);
+
+  useEffect(() => {
+    const subTodos = dbService.collection("todos").onSnapshot((snap) => {
+      // setIsPending(true);
+      const data = snap.docs.map(
+        (doc) => ({ ...doc.data(), id: doc.id } as Todo)
+      );
+
+      setTodos(data);
+      // setTimeout(() => setIsPending(false), 1000);
+    });
+
+    subTodos;
+    return subTodos;
+  }, []);
+
   return (
-    <div className="mx-auto">
-      <CURDForm curds={curds} setCurds={setCurds} />
-      <ul>
-        {curds.map((curd, index) => {
-          return <CURDItem key={index} />;
-        })}
+    <div>
+      <CRUDForm />
+
+      <ul className="border max-w-75 p-5 mx-auto flex flex-col gap-y-2.5">
+        {todos.map((t) => (
+          <li key={t.id}>
+            <CRUDItem {...t} />
+          </li>
+        ))}
       </ul>
     </div>
   );

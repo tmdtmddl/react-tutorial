@@ -203,7 +203,7 @@ const SurveyMakeForm = ({
         </ul>
 
         <Form.Input
-          placeholder="답변을 추가해주세요."
+          placeholder="답변을 추가해주세요.(답변을 작성후 엔터를 눌러주세요.)"
           ref={oRef}
           onFocus={() => setIsInsertingOption(true)}
           onBlur={() => setIsInsertingOption(false)}
