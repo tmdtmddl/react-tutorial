@@ -26,7 +26,7 @@ const AppRouter = () => {
 
           <Route path="admin">
             <Route index Component={AdminPage} />
-            {true && <Route path="stats" Component={AdminStatsPage} />}
+            {admin && <Route path="stats" Component={AdminStatsPage} />}
             {isInitialAdmin && (
               <Route path="create" Component={CreateAdminPage} />
             )}
