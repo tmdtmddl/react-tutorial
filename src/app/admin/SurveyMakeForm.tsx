@@ -147,7 +147,7 @@ const SurveyMakeForm = ({
   ]);
 
   return (
-    <Form.Container className="border w-full p-5" onSubmit={onSubmit}>
+    <Form.Container className=" w-full p-5" onSubmit={onSubmit}>
       <Container.Row className="gap-x-2.5">
         <Container.Col className="gap-y-1 flex-1">
           <Form.Label htmlFor="q">질문</Form.Label>
@@ -239,12 +239,15 @@ const SurveyMakeForm = ({
           value={option}
           onChange={(e) => setOption(e.target.value)}
         />
-        <Button.Opacity onClick={() => focus("options")}>
+        <Button.Opacity
+          onClick={() => focus("options")}
+          className="bg-pink-300"
+        >
           답변 추가
         </Button.Opacity>
       </Container.Col>
 
-      <Button.Opacity type="submit" className="bg-gray-800 text-white">
+      <Button.Opacity type="submit" className="bg-pink-400 text-white">
         질문 생성하기
       </Button.Opacity>
     </Form.Container>
