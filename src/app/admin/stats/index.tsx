@@ -60,7 +60,7 @@ const AdminStatsPage = () => {
     surveys.map((survey, si) => {
       responses.map((response) => {
         survey.options.map((option, oi) => {
-          response.answers[si].map((answer) => {
+          response.answers[si]?.map((answer) => {
             if (answer === option) {
               res[si][oi] += 1;
             }

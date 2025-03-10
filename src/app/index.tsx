@@ -15,8 +15,18 @@ const Home = () => {
         <Button.Opacity
           onClick={() =>
             alert("로그인 하시겠습니까?", [
-              { text: "회원가입", onClick: () => navi("signup") },
-              { text: "로그인", onClick: () => navi("signin") },
+              {
+                text: "회원가입",
+                onClick: () => {
+                  navi("signup");
+                },
+              },
+              {
+                text: "로그인",
+                onClick: () => {
+                  navi("signin");
+                },
+              },
             ])
           }
           className="bg-pink-400 text-white"

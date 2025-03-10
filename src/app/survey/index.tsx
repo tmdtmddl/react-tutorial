@@ -76,7 +76,7 @@ const SurveyPage = () => {
     <h1>이미 설문에 응답하셨습니다.</h1>
   ) : (
     <Form.Container
-      className="border w-full max-w-100 mx-auto p-5"
+      className=" w-full max-w-100 mx-auto p-5"
       onSubmit={onSubmit}
     >
       {surveys.map((survey, index) => (
