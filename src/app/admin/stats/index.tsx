@@ -126,9 +126,9 @@ const AdminStatsPage = () => {
         <Container.Row className=" justify-end">
           <Button.Opacity
             onClick={onDownload}
-            className="px-2.5 gap-x-2.5 hover:shadow-md"
+            className="px-2.5 gap-x-1.5 bg-pink-400 text-white hover:shadow-md"
           >
-            다운로드 <AiOutlineCloudDownload />
+            다운로드 <AiOutlineCloudDownload className="text-2xl" />
           </Button.Opacity>
         </Container.Row>
 

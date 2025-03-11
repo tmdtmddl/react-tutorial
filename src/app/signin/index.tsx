@@ -56,10 +56,7 @@ const SigninPage = () => {
   }, [email, password, focus, navi]);
 
   return (
-    <Form.Container
-      className="w-full max-w-75 mx-auto border"
-      onSubmit={onSubmit}
-    >
+    <Form.Container className="w-full max-w-75 mx-auto " onSubmit={onSubmit}>
       <Container.Col className="gap-y-1">
         <Form.Label htmlFor="email">Email</Form.Label>
         <Form.Input
