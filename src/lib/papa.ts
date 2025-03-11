@@ -19,7 +19,7 @@ const usePapa = () => {
       header: true,
       quotes: true,
       newline: "\r\n",
-      encoding: "UTE-8",
+      //   encoding: "UTE-8",
       ...config,
     });
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });

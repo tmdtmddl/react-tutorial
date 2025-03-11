@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { OnChangeSignup } from "./Content_n";
 import { Animated, Button, Container, Form } from "../../components";
 import { twMerge } from "tailwind-merge";

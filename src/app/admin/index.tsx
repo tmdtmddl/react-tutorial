@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useMemo } from "react";
-import { Form, Container, Button, Typo } from "../../components";
+import { Form, Container, Button } from "../../components";
 import { emailValidator, authService } from "../../lib";
 import { Alert, Auth } from "../../contexts";
 import AdminPanel from "./AdminPanel";

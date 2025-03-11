@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { dbService } from "../../lib";
 import { Container, Button, Typo } from "../../components";
 import SurveyMakeForm from "./SurveyMakeForm";

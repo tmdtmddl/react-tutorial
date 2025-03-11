@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { dbService } from "../../../lib";
 import { Button, Container } from "../../../components";
 import PercentageBar from "./PercentageBar";
-import Papa, { SurveyCSV } from "./Papa";
+import { SurveyCSV } from "./Papa";
 import { AiOutlineCloudDownload } from "react-icons/ai";
 import { Alert } from "../../../contexts";
 import usePapa from "../../../lib/papa";

@@ -3,11 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://github.com/tmdtmddl/react-tutorial.git",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
@@ -16,6 +19,7 @@
     "bcryptjs": "^3.0.2",
     "D": "^1.0.0",
     "firebase": "^11.4.0",
+    "gh-pages": "^6.3.0",
     "open-color": "^1.9.1",
     "papaparse": "^5.5.2",
     "react": "^19.0.0",
