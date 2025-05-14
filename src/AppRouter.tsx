@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Home from "./app/index";
 import Signup from "./app/signup/index";
 import Signin from "./app/signin/index";
@@ -15,7 +15,7 @@ const AppRouter = () => {
   return (
     <>
       <AlertComponent />
-      <BrowserRouter basename="/react-tutorial">
+      <HashRouter basename="/react-tutorial">
         <Routes>
           <Route path="*" element={<h1>Page Not Found return home</h1>} />
           <Route path="/" Component={Home} />
@@ -32,7 +32,7 @@ const AppRouter = () => {
             )}
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
