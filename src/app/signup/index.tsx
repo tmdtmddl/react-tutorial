@@ -483,7 +483,7 @@ const Signup = () => {
           console.log("uid stored");
 
           alert("회원가입을 축하합니다.");
-          navi("/survey");
+          return navi("/survey");
         } catch (error: any) {
           return alert(error.message);
         }

@@ -49,7 +49,7 @@ const SigninPage = () => {
       alert("로그인 되었습니다.");
       localStorage.setItem("uid", JSON.stringify(fetchedUser.id));
 
-      navi("/");
+      return navi("/survey");
     } catch (error: any) {
       return alert(error.message);
     }
