@@ -15,7 +15,7 @@ const AppRouter = () => {
   return (
     <>
       <AlertComponent />
-      <HashRouter basename="/react-tutorial">
+      <HashRouter>
         <Routes>
           <Route path="*" element={<h1>Page Not Found return home</h1>} />
           <Route path="/" Component={Home} />
